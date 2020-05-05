@@ -1,1 +1,4 @@
 /.idea/
+/docker/localstack/
+/docker/minio/data/
+/docker/mysql/data/
