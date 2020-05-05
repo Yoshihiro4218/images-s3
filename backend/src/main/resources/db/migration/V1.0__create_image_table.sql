@@ -1,4 +1,4 @@
-CREATE TABLE image
+CREATE TABLE object_key
 (
     id         BIGINT PRIMARY KEY AUTO_INCREMENT,
     object_key VARCHAR(256) NOT NULL,
