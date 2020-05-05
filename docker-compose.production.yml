@@ -49,6 +49,7 @@ services:
 #      s3.access-key: "AKIAXDFNTWHJ3M65QKG3"
 #      s3.secret-key: "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"
 #      s3.url:
+      s3.url: http://minio:9000/
     depends_on:
       - db
 
