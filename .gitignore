@@ -4,3 +4,4 @@
 /docker/mysql/data/
 /backend/images.iml
 /backend/target/
+/node_modules/
