@@ -22,7 +22,7 @@ public class ImageController {
     @PostMapping("")
     @Transactional
     public ResponseEntity<String> upload(@RequestBody ImageParam postImage) {
-        log.info("Image={}", postImage.getImage());
+        log.info("UploadImage={}", postImage.getImage());
         String objectKey = imageRepository.writeImage(postImage.getImage().substring(postImage.getImage().indexOf(",") + 1));
         log.info("S3ObjectKey={}", objectKey);
 //        すみませんが面倒くさいのでコントローラでやります草
@@ -39,6 +39,7 @@ public class ImageController {
         List<byte[]> images = objectKeys.stream()
                                         .map(x -> imageRepository.readImage(x.get("object_key").toString()))
                                         .collect(Collectors.toList());
+        log.info("ReadImages={}", images);
         return ResponseEntity.ok(images);
     }
 
