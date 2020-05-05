@@ -35,9 +35,9 @@ public class ImageRepository {
         return os.toByteArray();
     }
 
-    public String writeImage(String filePath) {
+    public String writeImage(String base64EncodedImage) {
         String objectKey = UUID.randomUUID().toString();
-        byte[] imgByte = Base64.decodeBase64((filePath.substring(filePath.indexOf(",") + 1)).getBytes());
+        byte[] imgByte = Base64.decodeBase64(base64EncodedImage);
         InputStream stream = new ByteArrayInputStream(imgByte);
         PutObjectRequest putObjectRequest = new PutObjectRequest(amazonS3Properties.getBucketName(), objectKey, stream, new ObjectMetadata());
         s3.putObject(putObjectRequest);
