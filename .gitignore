@@ -2,3 +2,4 @@
 /docker/localstack/
 /docker/minio/data/
 /docker/mysql/data/
+/backend/images.iml
