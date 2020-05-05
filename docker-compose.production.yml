@@ -46,5 +46,21 @@ services:
       spring.datasource.url: "jdbc:mysql://db/image"
       spring.datasource.username: "user"
       spring.datasource.password: "password"
+#      s3.access-key: "AKIAXDFNTWHJ3M65QKG3"
+#      s3.secret-key: "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"
+#      s3.url:
     depends_on:
       - db
+
+###############
+
+  minio:
+    image: minio/minio
+    environment:
+      MINIO_ACCESS_KEY: minio
+      MINIO_SECRET_KEY: minio_secret
+    ports:
+      - "9000:9000"
+    volumes:
+      - "./docker/minio/data:/data"
+    command: server /data
