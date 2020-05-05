@@ -22,7 +22,8 @@ public class ImageController {
     @PostMapping("")
     @Transactional
     public ResponseEntity<String> upload(@RequestBody ImageParam postImage) {
-        String objectKey = imageRepository.writeImage(postImage.getImage());
+        log.info("Image={}", postImage.getImage());
+        String objectKey = imageRepository.writeImage(postImage.getImage().substring(postImage.getImage().indexOf(",") + 1));
         log.info("S3ObjectKey={}", objectKey);
 //        すみませんが面倒くさいのでコントローラでやります草
         jdbcTemplate.update("INSERT INTO object_key SET object_key = ?, " +
