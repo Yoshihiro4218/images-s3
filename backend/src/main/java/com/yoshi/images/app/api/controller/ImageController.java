@@ -8,6 +8,9 @@ import org.springframework.jdbc.core.*;
 import org.springframework.transaction.annotation.*;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.*;
+import java.util.stream.*;
+
 @RestController
 @RequestMapping("/api/images")
 @AllArgsConstructor
@@ -25,6 +28,17 @@ public class ImageController {
         jdbcTemplate.update("INSERT INTO object_key SET object_key = ?, " +
                                     "created_at = NOW(), updated_at = NOW()", objectKey);
         return ResponseEntity.ok("ok");
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<byte[]>> getRandom9Images() {
+//        TODO: Random9Images
+        List<Map<String, Object>> objectKeys =
+                jdbcTemplate.queryForList("SELECT * FROM object_key;");
+        List<byte[]> images = objectKeys.stream()
+                                        .map(x -> imageRepository.readImage(x.get("object_key").toString()))
+                                        .collect(Collectors.toList());
+        return ResponseEntity.ok(images);
     }
 
     @Data

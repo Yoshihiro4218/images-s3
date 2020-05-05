@@ -19,14 +19,20 @@ public class ImageRepository {
     private final AmazonS3Properties amazonS3Properties;
 
 
-    public byte[] readImage(String objectKey) throws IOException {
+    public byte[] readImage(String objectKey) {
         GetObjectRequest getObjectRequest = new GetObjectRequest(amazonS3Properties.getBucketName(), objectKey);
         S3Object s3Object = s3.getObject(getObjectRequest);
         S3ObjectInputStream is = s3Object.getObjectContent();
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         while (true) {
-            int len = is.read(buffer);
+            int len = 0;
+            try {
+                len = is.read(buffer);
+            }
+            catch (IOException e) {
+                throw new RuntimeException("Object Key is not found...!!");
+            }
             if (len < 0) {
                 break;
             }
