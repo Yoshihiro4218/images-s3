@@ -9,8 +9,10 @@ services:
     # restart: always
     links:
       - nginx
+    extra_hosts:
+      - 'home.kadono.work:127.0.0.1'
     environment:
-      DOMAINS: 'home.kadono.work -> http://nginx:8081'
+      DOMAINS: 'home.kadono.work -> http://dockerhost:8081'
       STAGE: 'production'
       # WEBSOCKET: 'true'
       # FORCE_RENEW: 'true'
