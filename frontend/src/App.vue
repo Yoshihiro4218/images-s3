@@ -11,9 +11,10 @@
     <div style="width: 750px; text-align: center; margin-left: 350px;">
       <div v-for="(item, idx) of items" :key="idx" style="display: inline-flex;">
         <img :src="'data:image/jpeg;base64,' + item" alt="image"
-             style="margin-right: 50px; margin-top: 50px; width: 200px; height: 200px;">
-<!--        <img :src="item" alt="image"-->
-<!--             style="margin-right: 50px; width: 200px; margin-top: 50px;">-->
+             style="margin-right: 50px; margin-top: 50px; width: 200px; height: 200px;"
+             @click="downloadImage(idx)">
+        <!--        <img :src="item" alt="image"-->
+        <!--             style="margin-right: 50px; width: 200px; margin-top: 50px;">-->
       </div>
     </div>
   </div>
@@ -33,6 +34,7 @@ export default {
     axios
       .get('/api/images')
       .then((res) => {
+        console.log(res.data)
         this.items = res.data
       })
   },
@@ -79,7 +81,15 @@ export default {
         result = false
       }
       return result
-    }
+    },
+    downloadImage(id) {
+      // const url = URL.createObjectURL(new Blob([this.items[id]]));
+      const link = document.createElement('a');
+      link.href = `data:image/jpeg;base64, ${this.items[id]}`;
+      link.setAttribute('download', `${id}_.jpg`);
+      document.body.appendChild(link);
+      link.click();
+    },
   }
 }
 </script>
