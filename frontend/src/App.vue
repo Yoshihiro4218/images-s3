@@ -34,7 +34,6 @@ export default {
     axios
       .get('/api/images')
       .then((res) => {
-        console.log(res.data)
         this.items = res.data
       })
   },
